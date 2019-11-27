@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="runescapedatabaseModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="items">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="itemname" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="itemdesc" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="itemURL" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="itemValue" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="playeritems">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="playerid" Type="int" Nullable="false" />
+          <Property Name="itemid" Type="int" Nullable="false" />
+          <Property Name="count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="players">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="playername" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="playerpassword" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="playerrole" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="playerstats">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="playerid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="skills">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="skillname" Type="varchar" MaxLength="155" Nullable="false" />
+          <Property Name="skilldesc" Type="varchar" MaxLength="155" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="runescapedatabaseModelStoreContainer">
+          <EntitySet Name="items" EntityType="Self.items" Schema="runescapedatabase" store:Type="Tables" />
+          <EntitySet Name="playeritems" EntityType="Self.playeritems" Schema="runescapedatabase" store:Type="Tables" />
+          <EntitySet Name="players" EntityType="Self.players" Schema="runescapedatabase" store:Type="Tables" />
+          <EntitySet Name="playerstats" EntityType="Self.playerstats" Schema="runescapedatabase" store:Type="Tables" />
+          <EntitySet Name="skills" EntityType="Self.skills" Schema="runescapedatabase" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="runescapedatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="itemname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="itemdesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="itemURL" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="itemValue" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="playeritem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="playerid" Type="Int32" Nullable="false" />
+          <Property Name="itemid" Type="Int32" Nullable="false" />
+          <Property Name="count" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="player">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="playername" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="playerpassword" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="playerrole" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="runescapedatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="items" EntityType="Self.item" />
+          <EntitySet Name="playeritems" EntityType="Self.playeritem" />
+          <EntitySet Name="players" EntityType="Self.player" />
+          <EntitySet Name="playerstats" EntityType="runescapedatabaseModel.playerstat" />
+          <EntitySet Name="skills" EntityType="runescapedatabaseModel.skill" />
+        </EntityContainer>
+        <EntityType Name="playerstat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="playerid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="skill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="skillname" Type="String" Nullable="false" MaxLength="155" FixedLength="false" Unicode="false" />
+          <Property Name="skilldesc" Type="String" Nullable="false" MaxLength="155" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="runescapedatabaseModelStoreContainer" CdmEntityContainer="runescapedatabaseEntities">
+          <EntitySetMapping Name="items">
+            <EntityTypeMapping TypeName="runescapedatabaseModel.item">
+              <MappingFragment StoreEntitySet="items">
+                <ScalarProperty Name="itemValue" ColumnName="itemValue" />
+                <ScalarProperty Name="itemURL" ColumnName="itemURL" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="itemname" ColumnName="itemname" />
+                <ScalarProperty Name="itemdesc" ColumnName="itemdesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="playeritems">
+            <EntityTypeMapping TypeName="runescapedatabaseModel.playeritem">
+              <MappingFragment StoreEntitySet="playeritems">
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="playerid" ColumnName="playerid" />
+                <ScalarProperty Name="itemid" ColumnName="itemid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="players">
+            <EntityTypeMapping TypeName="runescapedatabaseModel.player">
+              <MappingFragment StoreEntitySet="players">
+                <ScalarProperty Name="playerrole" ColumnName="playerrole" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="playername" ColumnName="playername" />
+                <ScalarProperty Name="playerpassword" ColumnName="playerpassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="playerstats">
+            <EntityTypeMapping TypeName="runescapedatabaseModel.playerstat">
+              <MappingFragment StoreEntitySet="playerstats">
+                <ScalarProperty Name="playerid" ColumnName="playerid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skills">
+            <EntityTypeMapping TypeName="runescapedatabaseModel.skill">
+              <MappingFragment StoreEntitySet="skills">
+                <ScalarProperty Name="skilldesc" ColumnName="skilldesc" />
+                <ScalarProperty Name="skillname" ColumnName="skillname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

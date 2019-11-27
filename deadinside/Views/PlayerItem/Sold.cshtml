@@ -1,0 +1,12 @@
+﻿@model deadinside.Models.playeritem
+
+@{
+    ViewBag.Title = "Sold";
+    //var itemSold = Model.items[0]; @itemSold.itemname for @itemSold.itemValue
+}
+<h2>Successfully Sold</h2>
+@* TODO: add item value to display amount of money gained *@
+<p>
+    @Html.ActionLink("Back to Available Items", "Index")
+    @Html.ActionLink("Your Inventory", "Index", "PlayerItem")
+</p>

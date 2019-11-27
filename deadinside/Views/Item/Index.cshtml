@@ -1,0 +1,60 @@
+﻿@model IEnumerable<deadinside.Models.item>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Available Items</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.itemname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.itemdesc)
+        </th>
+        <th>
+            Item Value
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            Add to Inventory?
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        var itemURL = item.itemURL;
+        <tr>
+            @if (item.itemname != "Coins") // wouldnt want to sell money :)
+            {
+                <td>@Html.DisplayFor(modelItem => item.itemname)</td>
+                <td>@Html.DisplayFor(modelItem => item.itemdesc)</td>
+                <td>@Html.DisplayFor(modelItem => item.itemValue)</td>
+                <td><img src="@itemURL" height="100" width="100"/></td>
+                <td>
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("Added", "Item",  new { id = item.id, playername = @HttpContext.Current.User.Identity.Name }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Steal Item" class="btn btn-default" />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>You are not logged in and therefore cannot add an item to your bank</p>
+                    @Html.ActionLink("Click here to Log in", "Login", "Player")
+                }
+                </td>
+            }
+        </tr>
+    }
+</table>
+

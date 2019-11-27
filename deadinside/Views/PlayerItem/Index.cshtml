@@ -1,0 +1,76 @@
+﻿@model deadinside.Models.playeritem
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (Request.IsAuthenticated)
+{
+    <h2>Welcome @HttpContext.Current.User.Identity.Name</h2>
+    <p>This is your item bank</p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.playerid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.itemid)
+        <th>
+            <strong>Item Count</strong>
+        </th>
+        <th>
+            <strong>Item Name</strong>
+        </th>
+        <th>
+            <strong>Item Description</strong>
+        </th>
+        <th>
+            <strong>Item Value</strong>
+        </th>
+        <th>
+            <strong>Image</strong>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var stat in Model.playeritems)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => stat.playerid)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => stat.itemid)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => stat.count)
+    </td>
+
+    @foreach (var item in Model.items)
+    {
+        if (stat.itemid == item.id) //& !item.isCounted)
+        {
+            var itemURL = item.itemURL;
+            <td>@Html.DisplayFor(modelItem => item.itemname)</td>
+            <td>@Html.DisplayFor(modelItem => item.itemdesc)</td>
+            <td>@Html.DisplayFor(modelItem => item.itemValue)</td>
+            <td><img src="@itemURL" height="100" width="100"/></td>   
+            //item.isCounted = true;
+            <td>
+            @if (Request.IsAuthenticated && item.itemname != "Coins") // dont sell money lol
+                {
+                    using (Html.BeginForm("Sold", "PlayerItem",  new { id = item.id, playername = @HttpContext.Current.User.Identity.Name }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Sell Item" class="btn btn-default" />
+                        </div>
+                    }
+                }
+            </td>
+        }
+    }
+</tr>
+    }
+</table>

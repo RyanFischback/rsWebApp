@@ -1,0 +1,13 @@
+﻿@model deadinside.Models.item
+@{
+    ViewBag.Title = "Added";
+}
+
+<h2>Successfully Added to Inventory</h2>
+
+
+
+<p>
+    @Html.ActionLink("Back to Available Items", "Index")
+    @Html.ActionLink("Your Inventory", "Index", "PlayerItem")
+</p>
